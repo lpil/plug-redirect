@@ -1,6 +1,10 @@
 PlugRedirect
 ============
 
+[![Build Status](https://travis-ci.org/lpil/plug-redirect.svg?branch=master)](https://travis-ci.org/lpil/plug-redirect)
+[![Hex version](https://img.shields.io/hexpm/v/plug_redirect.svg "Hex version")](https://hex.pm/packages/plug_redirect)
+[![Hex downloads](https://img.shields.io/hexpm/dt/plug_redirect.svg "Hex downloads")](https://hex.pm/packages/plug_redirect)
+
 A plug for performing redirects based upon request path.
 
 
