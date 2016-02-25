@@ -12,7 +12,7 @@ defmodule PlugRedirect.Mixfile do
 
       name: "PlugRedirect",
       source_url: "https://github.com/lpil/plug-redirect",
-      description: "A plug for performing redirects based upon request path.",
+      description: "A plug builder for redirecting requests.",
       package: [
         maintainers: ["Louis Pilfold"],
         licenses: ["MIT"],

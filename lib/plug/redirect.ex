@@ -1,6 +1,6 @@
 defmodule Plug.Redirect do
   @moduledoc """
-  A plug for redirecting requests.
+  A plug builder for redirecting requests.
   """
 
   @redirect_codes [301, 302, 303, 307, 308]

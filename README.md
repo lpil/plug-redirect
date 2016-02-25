@@ -5,7 +5,7 @@ PlugRedirect
 [![Hex version](https://img.shields.io/hexpm/v/plug_redirect.svg "Hex version")](https://hex.pm/packages/plug_redirect)
 [![Hex downloads](https://img.shields.io/hexpm/dt/plug_redirect.svg "Hex downloads")](https://hex.pm/packages/plug_redirect)
 
-A plug for performing redirects based upon request path.
+A plug builder for redirecting requests.
 
 
 ## Usage
@@ -16,7 +16,7 @@ Add PlugRedirect to your Mix dependencies
 # mix.exs
 def deps do
   [
-    {:plug_redirect "~> 0.0"},
+    {:plug_redirect, "~> 0.0"},
   ]
 end
 ```
