@@ -8,7 +8,16 @@ defmodule PlugRedirect.Mixfile do
       elixir: "~> 1.2",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps
+      deps: deps,
+
+      name: "PlugRedirect",
+      source_url: "https://github.com/lpil/plug-redirect",
+      description: "A plug for performing redirects based upon request path.",
+      package: [
+        maintainers: ["Louis Pilfold"],
+        licenses: ["MIT"],
+        links: %{ "GitHub" => "https://github.com/lpil/plug-redirect" },
+      ]
     ]
   end
 

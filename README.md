@@ -1,7 +1,7 @@
 PlugRedirect
 ============
 
-A plug for performing redirecting requests based upon request path.
+A plug for performing redirects based upon request path.
 
 
 ## Usage
