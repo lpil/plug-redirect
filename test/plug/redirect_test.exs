@@ -9,6 +9,8 @@ defmodule Plug.RedirectTest do
     redirect 302, "/jump/up", "/get/down"
     redirect 303, "/ra/wavy", "/by/droid"
     redirect 307, "/rock/on", "/roll/out"
+
+    redirect "/no/status", "/301/default"
   end
 
   @opts MyPlug.init([])
@@ -48,5 +50,12 @@ defmodule Plug.RedirectTest do
     assert conn.state == :set
     assert conn.status == 307
     assert Plug.Conn.get_resp_header(conn, "location") == ["/roll/out"]
+  end
+
+  test "when given no status it defaults to 301" do
+    conn = :get |> conn("/no/status") |> MyPlug.call(@opts)
+    assert conn.state == :set
+    assert conn.status == 301
+    assert Plug.Conn.get_resp_header(conn, "location") == ["/301/default"]
   end
 end

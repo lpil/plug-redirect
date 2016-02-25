@@ -7,7 +7,7 @@ defmodule Plug.Redirect do
 
   defmacro __using__(_opts) do
     quote do
-      import unquote(__MODULE__), only: [redirect: 3]
+      import unquote(__MODULE__), only: [redirect: 3, redirect: 2]
       @before_compile unquote(__MODULE__)
       def init(opts), do: opts
     end
@@ -39,6 +39,15 @@ defmodule Plug.Redirect do
         |> Plug.Conn.resp(unquote(status), "You are being redirected.")
         |> Plug.Conn.halt
       end
+    end
+  end
+
+  @doc """
+  The same as redirect/3, only with a default status code of 301.
+  """
+  defmacro redirect(from, to) do
+    quote do
+      redirect(301, unquote(from), unquote(to))
     end
   end
 end
