@@ -32,8 +32,9 @@ defmodule Plug.Redirect do
   The third argument is the location to redirect the request to.
   """
   defmacro redirect(status, from, to) when status in @redirect_codes do
+    segments = split_path(from)
     quote do
-      def call(%Plug.Conn{request_path: unquote(from)} = conn, _opts) do
+      def call(%Plug.Conn{path_info: unquote(segments)} = conn, _opts) do
         conn
         |> Plug.Conn.put_resp_header("location", unquote(to))
         |> Plug.Conn.resp(unquote(status), "You are being redirected.")
@@ -49,5 +50,12 @@ defmodule Plug.Redirect do
     quote do
       redirect(301, unquote(from), unquote(to))
     end
+  end
+
+
+  @spec split_path(String.t) :: [String.t]
+
+  defp split_path(path) do
+    path |> String.split("/") |> Enum.filter(&(&1 != ""))
   end
 end
