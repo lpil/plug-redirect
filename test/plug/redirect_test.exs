@@ -12,7 +12,9 @@ defmodule Plug.RedirectTest do
 
     redirect "/no/status", "/301/default"
 
-    redirect "/blog/:slug", "/no-more-blog"
+    redirect "/blog/:slug",  "/no-more-blog"
+    redirect "/users/:slug", "/profile/:slug"
+    redirect "/other/:slug", "http://somewhere.com/profile/:slug"
   end
 
   @opts MyPlug.init([])
@@ -56,6 +58,11 @@ defmodule Plug.RedirectTest do
     assert_redirect(conn, 301, "/no-more-blog")
     conn = get("/blog/another-article")
     assert_redirect(conn, 301, "/no-more-blog")
+  end
+
+  test "other hosts can be redirected to" do
+    conn = get("/other/louis")
+    assert_redirect(conn, 301, "http://somewhere.com/profile/louis")
   end
 
 

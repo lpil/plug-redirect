@@ -46,6 +46,9 @@ defmodule MyApp.Redirector do
 
   # Segements prefixed with a colon will match anything
   redirect "/blog/:anything", "/blog-closed"
+
+  # Variable segments can be interpolated into the destination
+  redirect "/users/:name", "/profile/:name"
 end
 ```
 

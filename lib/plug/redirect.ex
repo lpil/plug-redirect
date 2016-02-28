@@ -34,11 +34,13 @@ defmodule Plug.Redirect do
   The third argument is the location to redirect the request to.
   """
   defmacro redirect(status, from, to) when status in @redirect_codes do
-    segments = Route.to_path_info_ast(from)
+    from_segments = from |> Route.to_path_info_ast |> Enum.filter(&(&1 != ""))
+    to_segments   = to   |> Route.to_path_info_ast
     quote do
-      def call(%Plug.Conn{path_info: unquote(segments)} = conn, _opts) do
+      def call(%Plug.Conn{path_info: unquote(from_segments)} = conn, _opts) do
+        to = unquote(to_segments) |> Enum.join("/")
         conn
-        |> Plug.Conn.put_resp_header("location", unquote(to))
+        |> Plug.Conn.put_resp_header("location", to)
         |> Plug.Conn.resp(unquote(status), "You are being redirected.")
         |> Plug.Conn.halt
       end
