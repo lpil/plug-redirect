@@ -3,6 +3,8 @@ defmodule Plug.Redirect do
   A plug builder for redirecting requests.
   """
 
+  alias Plug.Redirect.Route
+
   @redirect_codes [301, 302, 303, 307, 308]
 
   defmacro __using__(_opts) do
@@ -32,7 +34,7 @@ defmodule Plug.Redirect do
   The third argument is the location to redirect the request to.
   """
   defmacro redirect(status, from, to) when status in @redirect_codes do
-    segments = split_path(from)
+    segments = Route.to_path_info_ast(from)
     quote do
       def call(%Plug.Conn{path_info: unquote(segments)} = conn, _opts) do
         conn
@@ -50,12 +52,5 @@ defmodule Plug.Redirect do
     quote do
       redirect(301, unquote(from), unquote(to))
     end
-  end
-
-
-  @spec split_path(String.t) :: [String.t]
-
-  defp split_path(path) do
-    path |> String.split("/") |> Enum.filter(&(&1 != ""))
   end
 end

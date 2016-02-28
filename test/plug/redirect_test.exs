@@ -51,6 +51,13 @@ defmodule Plug.RedirectTest do
     assert_redirect(conn, 301, "/301/default")
   end
 
+  test "variable sections can exist" do
+    conn = get("/blog/some-article")
+    assert_redirect(conn, 301, "/no-more-blog")
+    conn = get("/blog/another-article")
+    assert_redirect(conn, 301, "/no-more-blog")
+  end
+
 
   defp get(path) do
     :get |> conn(path) |> MyPlug.call(@opts)

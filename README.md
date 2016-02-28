@@ -43,6 +43,9 @@ defmodule MyApp.Redirector do
 
   # When no status code is supplied it defaults to 301
   redirect "/margaret", "/hamilton"
+
+  # Segements prefixed with a colon will match anything
+  redirect "/blog/:anything", "/blog-closed"
 end
 ```
 
