@@ -28,8 +28,7 @@ defmodule Plug.Redirect do
   The first argument is the 30x redirect HTTP status code to use. 301, 302,
   etc.
 
-  The second argument is the request to match upon for the redirect. It must
-  begin with a "/".
+  The second argument is the request to match upon for the redirect.
 
   The third argument is the location to redirect the request to.
   """
