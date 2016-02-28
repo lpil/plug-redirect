@@ -27,30 +27,34 @@ defmodule Plug.RedirectTest do
   end
 
   test "it can perform 301 redirects" do
-    conn = :get |> conn("/foo/bar") |> MyPlug.call(@opts)
+    conn = get("/foo/bar")
     assert_redirect(conn, 301, "/a/redirect")
   end
 
   test "it can perform 302 redirects" do
-    conn = :get |> conn("/jump/up") |> MyPlug.call(@opts)
+    conn = get("/jump/up")
     assert_redirect(conn, 302, "/get/down")
   end
 
   test "it can perform 303 redirects" do
-    conn = :get |> conn("/ra/wavy") |> MyPlug.call(@opts)
+    conn = get("/ra/wavy")
     assert_redirect(conn, 303, "/by/droid")
   end
 
   test "it can perform 307 redirects" do
-    conn = :get |> conn("/rock/on") |> MyPlug.call(@opts)
+    conn = get("/rock/on")
     assert_redirect(conn, 307, "/roll/out")
   end
 
   test "when given no status it defaults to 301" do
-    conn = :get |> conn("/no/status") |> MyPlug.call(@opts)
+    conn = get("/no/status")
     assert_redirect(conn, 301, "/301/default")
   end
 
+
+  defp get(path) do
+    :get |> conn(path) |> MyPlug.call(@opts)
+  end
 
   defp assert_redirect(conn, code, to) do
     assert conn.state == :set
