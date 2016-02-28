@@ -30,7 +30,7 @@ mix deps.get
 Create a new module and specify your redirects like so:
 
 ```elixir
-defmodule MyApp.RedirectPlug do
+defmodule MyApp.Redirector do
   use Plug.Redirect
 
   # Argument #1 is the 30x status code to use
@@ -57,13 +57,10 @@ defmodule MyApp.Endpoint do
 
   plug Plug.RequestId
   plug Plug.Logger
-
-  # After the logger is a good spot to insert
-  plug MyApp.RedirectPlug
-
   plug Plug.MethodOverride
   plug Plug.Head
 
+  plug MyApp.Redirector # Insert your redirector anywhere before the router
   plug MyApp.Router
 end
 ```
