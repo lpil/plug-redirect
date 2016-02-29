@@ -5,10 +5,10 @@ defmodule Plug.RedirectTest do
   defmodule MyPlug do
     use Plug.Redirect
 
-    redirect 301, "/foo/bar", "/a/redirect"
-    redirect 302, "/jump/up", "/get/down"
-    redirect 303, "/ra/wavy", "/by/droid"
-    redirect 307, "/rock/on", "/roll/out"
+    redirect "/foo/bar", "/go/here",  status: 301
+    redirect "/jump/up", "/get/down", status: 302
+    redirect "/ra/wavy", "/by/droid", status: 303
+    redirect "/rock/on", "/roll/out", status: 307
 
     redirect "/no/status", "/301/default"
 
@@ -30,7 +30,7 @@ defmodule Plug.RedirectTest do
 
   test "it can perform 301 redirects" do
     conn = get("/foo/bar")
-    assert_redirect(conn, 301, "/a/redirect")
+    assert_redirect(conn, 301, "/go/here")
   end
 
   test "it can perform 302 redirects" do

@@ -25,14 +25,19 @@ defmodule Plug.Redirect do
   @doc """
   Specify a redirect.
 
-  The first argument is the 30x redirect HTTP status code to use. 301, 302,
-  etc.
+  The first argument is the request to match upon for the redirect.
 
-  The second argument is the request to match upon for the redirect.
+  The second argument is the location to redirect the request to.
 
-  The third argument is the location to redirect the request to.
+  ## Options
+
+  * `:status` - The HTTP status code to use for the redirect.
   """
-  defmacro redirect(status, from, to) when status in @redirect_codes do
+  defmacro redirect(from, to, options \\ [{:status, 301}])
+
+  defmacro redirect(from, to, [{:status, status}])
+  when status in @redirect_codes
+  do
     from_segments = from |> Route.to_path_info_ast |> Enum.filter(&(&1 != ""))
     to_segments   = to   |> Route.to_path_info_ast
     quote do
@@ -43,15 +48,6 @@ defmodule Plug.Redirect do
         |> Plug.Conn.resp(unquote(status), "You are being redirected.")
         |> Plug.Conn.halt
       end
-    end
-  end
-
-  @doc """
-  The same as redirect/3, only with a default status code of 301.
-  """
-  defmacro redirect(from, to) do
-    quote do
-      redirect(301, unquote(from), unquote(to))
     end
   end
 end

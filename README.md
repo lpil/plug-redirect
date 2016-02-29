@@ -33,16 +33,12 @@ Create a new module and specify your redirects like so:
 defmodule MyApp.Redirector do
   use Plug.Redirect
 
-  # Argument #1 is the 30x status code to use
-  # Argument #2 is the path to redirect from
-  # Argument #3 is the path to redirect to
-  redirect 301, "/ada",   "/lovelace"
-  redirect 302, "/grace", "/hopper"
-  redirect 303, "/adele", "/goldberg"
-  redirect 307, "/sandi", "/metz"
+  # Argument #1 is the path to redirect from
+  # Argument #2 is the path to redirect to
+  redirect "/ada", "/lovelace"
 
-  # When no status code is supplied it defaults to 301
-  redirect "/margaret", "/hamilton"
+  # An HTTP status code can also be specified
+  redirect "/grace", "/hopper", status: 302
 
   # Segements prefixed with a colon will match anything
   redirect "/blog/:anything", "/blog-closed"
