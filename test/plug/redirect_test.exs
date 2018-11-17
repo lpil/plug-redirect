@@ -15,6 +15,12 @@ defmodule Plug.RedirectTest do
     redirect("/blog/:slug", "/no-more-blog")
     redirect("/users/:slug", "/profile/:slug")
     redirect("/other/:slug", "http://somewhere.com/profile/:slug")
+
+    # Old API
+    redirect(301, "/old/foo/bar", "/go/here")
+    redirect(302, "/old/jump/up", "/get/down")
+    redirect(303, "/old/ra/wavy", "/by/droid")
+    redirect(307, "/old/rock/on", "/roll/out")
   end
 
   @opts MyPlug.init([])
@@ -46,6 +52,28 @@ defmodule Plug.RedirectTest do
   test "it can perform 307 redirects" do
     conn = get("/rock/on")
     assert_redirect(conn, 307, "/roll/out")
+  end
+
+  describe "backwards compatibility with old API" do
+    test "it can perform 301 redirects" do
+      conn = get("/old/foo/bar")
+      assert_redirect(conn, 301, "/go/here")
+    end
+
+    test "it can perform 302 redirects" do
+      conn = get("/old/jump/up")
+      assert_redirect(conn, 302, "/get/down")
+    end
+
+    test "it can perform 303 redirects" do
+      conn = get("/old/ra/wavy")
+      assert_redirect(conn, 303, "/by/droid")
+    end
+
+    test "it can perform 307 redirects" do
+      conn = get("/old/rock/on")
+      assert_redirect(conn, 307, "/roll/out")
+    end
   end
 
   test "when given no status it defaults to 301" do

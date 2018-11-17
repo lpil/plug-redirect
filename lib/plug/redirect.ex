@@ -50,4 +50,10 @@ defmodule Plug.Redirect do
       end
     end
   end
+
+  defmacro redirect(status, from, to) when is_integer(status) do
+    quote do
+      Plug.Redirect.redirect(unquote(from), unquote(to), status: unquote(status))
+    end
+  end
 end

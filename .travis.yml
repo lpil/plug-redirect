@@ -1,12 +1,10 @@
 language: elixir
 
 elixir:
-  - 1.0.5
-  - 1.1.0
-  - 1.2.0
+  - 1.7.0
 
 otp_release:
-  - 18.1
+  - 21.0
 
 env: MIX_ENV=test
 
@@ -18,4 +16,3 @@ notifications:
 script:
   - mix compile --warnings-as-errors
   - mix test
-  - mix dogma
