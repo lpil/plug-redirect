@@ -16,7 +16,7 @@ Add PlugRedirect to your Mix dependencies
 # mix.exs
 def deps do
   [
-    {:plug_redirect, "~> 0.0"},
+    {:plug_redirect, "~> 1.0"},
   ]
 end
 ```

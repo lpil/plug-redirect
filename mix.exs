@@ -4,7 +4,7 @@ defmodule PlugRedirect.Mixfile do
   def project do
     [
       app: :plug_redirect,
-      version: "0.1.2",
+      version: "1.0.0",
       elixir: "~> 1.0",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -27,7 +27,8 @@ defmodule PlugRedirect.Mixfile do
   defp deps do
     [
       {:plug, ">= 1.0.0"},
-      {:mix_test_watch, ">= 0.0.0", only: :dev}
+      {:mix_test_watch, ">= 0.0.0", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 end
