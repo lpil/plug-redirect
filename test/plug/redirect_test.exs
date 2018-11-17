@@ -5,16 +5,16 @@ defmodule Plug.RedirectTest do
   defmodule MyPlug do
     use Plug.Redirect
 
-    redirect "/foo/bar", "/go/here",  status: 301
-    redirect "/jump/up", "/get/down", status: 302
-    redirect "/ra/wavy", "/by/droid", status: 303
-    redirect "/rock/on", "/roll/out", status: 307
+    redirect("/foo/bar", "/go/here", status: 301)
+    redirect("/jump/up", "/get/down", status: 302)
+    redirect("/ra/wavy", "/by/droid", status: 303)
+    redirect("/rock/on", "/roll/out", status: 307)
 
-    redirect "/no/status", "/301/default"
+    redirect("/no/status", "/301/default")
 
-    redirect "/blog/:slug",  "/no-more-blog"
-    redirect "/users/:slug", "/profile/:slug"
-    redirect "/other/:slug", "http://somewhere.com/profile/:slug"
+    redirect("/blog/:slug", "/no-more-blog")
+    redirect("/users/:slug", "/profile/:slug")
+    redirect("/other/:slug", "http://somewhere.com/profile/:slug")
   end
 
   @opts MyPlug.init([])
@@ -22,7 +22,7 @@ defmodule Plug.RedirectTest do
 
   for method <- @methods do
     test "it passes through when no redirects match a #{method}" do
-      conn   = unquote(method) |> conn("/hello")
+      conn = unquote(method) |> conn("/hello")
       result = conn |> MyPlug.call(@opts)
       assert conn == result
     end
@@ -64,7 +64,6 @@ defmodule Plug.RedirectTest do
     conn = get("/other/louis")
     assert_redirect(conn, 301, "http://somewhere.com/profile/louis")
   end
-
 
   defp get(path) do
     :get |> conn(path) |> MyPlug.call(@opts)

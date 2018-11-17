@@ -10,14 +10,15 @@ defmodule Plug.Redirect.Route do
     |> Enum.map(&segment_to_var/1)
   end
 
-
   defp segment_to_var(":") do
     ":"
   end
+
   defp segment_to_var(":" <> segment) do
     var_name = String.to_atom(segment)
     {var_name, [], __MODULE__}
   end
+
   defp segment_to_var(segment) do
     segment
   end

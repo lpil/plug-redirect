@@ -21,7 +21,6 @@ defmodule Plug.Redirect do
     end
   end
 
-
   @doc """
   Specify a redirect.
 
@@ -36,17 +35,18 @@ defmodule Plug.Redirect do
   defmacro redirect(from, to, options \\ [{:status, 301}])
 
   defmacro redirect(from, to, [{:status, status}])
-  when status in @redirect_codes
-  do
-    from_segments = from |> Route.to_path_info_ast |> Enum.filter(&(&1 != ""))
-    to_segments   = to   |> Route.to_path_info_ast
+           when status in @redirect_codes do
+    from_segments = from |> Route.to_path_info_ast() |> Enum.filter(&(&1 != ""))
+    to_segments = to |> Route.to_path_info_ast()
+
     quote do
       def call(%Plug.Conn{path_info: unquote(from_segments)} = conn, _opts) do
         to = unquote(to_segments) |> Enum.join("/")
+
         conn
         |> Plug.Conn.put_resp_header("location", to)
         |> Plug.Conn.resp(unquote(status), "You are being redirected.")
-        |> Plug.Conn.halt
+        |> Plug.Conn.halt()
       end
     end
   end
